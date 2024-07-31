@@ -1,6 +1,8 @@
 const express = require('express');
 const fs = require('fs');
 const path = require('path');
+
+// Initialize express app
 const app = express();
 const PORT = process.env.PORT || 3001;
 
@@ -12,10 +14,6 @@ app.use(express.static('public'));
 // HTML Routes
 app.get('/notes', (req, res) => {
   res.sendFile(path.join(__dirname, 'public/notes.html'));
-});
-
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public/index.html'));
 });
 
 // API Routes
@@ -76,6 +74,16 @@ app.delete('/api/notes/:id', (req, res) => {
       res.json({ message: 'Note deleted' });
     });
   });
+});
+
+// HTML Routes
+app.get('/notes', (req, res) => {
+  res.sendFile(path.join(__dirname, '/public/notes.html'));
+});
+
+// Catch-all Route
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, '/public/index.html'));
 });
 
 app.listen(PORT, () => {
